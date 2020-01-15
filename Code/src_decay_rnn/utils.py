@@ -165,3 +165,15 @@ def dump_to_csv(X_IN, Y_IN, Y_PRED, Y_OUT_FULL=None, name="Dumped_csv.csv"):
             df_list.append({"Input sentence":X_IN[i], "Correct output":Y_IN[i], "predicted_output":Y_PRED[i], "Time stamp outputs": Y_OUT_FULL[i]})
     df = pd.DataFrame(df_list)
     df.to_csv(name)
+
+def dump_template_waveforms(dictionary)
+    for key in dictionary.keys():
+        X_IN, Y_IN, Y_OUT_FULL = zip(*dictionary[key])
+        dump_to_csv_template(list(X_IN), list(Y_IN), list(Y_OUT_FULL), name="Dumped_csv_"+str(key)+".csv")
+
+def dump_to_csv_template(X_IN, Y_IN, Y_OUT_FULL, name="Dumped_csv.csv"):
+    df_list = []
+    for i in range(len((X_IN))):
+        df_list.append({"Input sentence":X_IN[i], "Correct output":Y_IN[i], "Time stamp outputs": Y_OUT_FULL[i]})
+    df = pd.DataFrame(df_list)
+    df.to_csv(name)
