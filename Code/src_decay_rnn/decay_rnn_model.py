@@ -141,22 +141,24 @@ class DECAY_RNN_Model(object):
             len_X_testing = len(X_testing_perFile)
             assert len(X_testing_perFile) == len(Y_testing_perFile), "Assert failed at external testing!!"
             predicted=[]
+            all_output_per_file=[]
             with torch.no_grad():
                 for i in range(len_X_testing):
                     x_test =  X_testing_perFile[i]
                     x_test = torch.tensor(x_test, dtype=torch.long)
                     pred, _, all_output = self.model(x_test)
-                    if !pvn:
+                    all_output_per_file.append(str(all_output))
+                    if not pvn:
                         if pred[0][0]> pred[0][1]:
                             predicted.append(0)
                         else:
                             predicted.append(1)
-            if !pvn:
+            if not pvn:
                 acc = np.sum(np.asarray(Y_testing_perFile)==np.asarray(predicted))/len_X_testing
                 testing_result[files] = (Y_testing_perFile, predicted, acc, len_X_testing)
                 print(str(acc)+" "+str(len_X_testing))
             else:   
-                waveform_dump_dict[files] = (X_sentences, Y_testing_perFile, all_output)
+                waveform_dump_dict[files] = (X_sentences, Y_testing_perFile, all_output_per_file)
             
         return testing_result, waveform_dump_dict
 
@@ -198,7 +200,7 @@ class DECAY_RNN_Model(object):
                 pickle.dump(final_dict_testing[keys], pickle_out)
 
         results, waveform_dump_dict = self.external_testing(final_dict_testing, pvn=True)
-        if !pvn:
+        if not pvn:
             self.external_result_logger(results)
 
         dump_template_waveforms(waveform_dump_dict)
