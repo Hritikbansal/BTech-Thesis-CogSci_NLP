@@ -162,7 +162,7 @@ class DECAY_RNN_Model(object):
             
         return testing_result, waveform_dump_dict
 
-    def external_template_waveform_pvn(self, filename, save_processed_data = True):
+    def external_template_waveform_pvn(self, filename, model_prefix="model_task",save_processed_data = True):
         pvn=True
         value = lambda key : int(key.split("_")[0]!="sing")
         ex_list = []    #specialized method for waveforms visualizations 
@@ -203,7 +203,7 @@ class DECAY_RNN_Model(object):
         if not pvn:
             self.external_result_logger(results)
 
-        dump_template_waveforms(waveform_dump_dict)
+        dump_template_waveforms(waveform_dump_dict, model_prefix)
 
     def valid_input(self,  external_testing_dict):
         final_dict_testing={}
@@ -264,7 +264,7 @@ class DECAY_RNN_Model(object):
                 self.train(epochs, model_prefix)
         else:
             if test_linzen_template_pvn:
-                self.external_template_waveform_pvn(linzen_template_filename)
+                self.external_template_waveform_pvn(linzen_template_filename, model_prefix)
                 print("Testing Linzen template for pvn completed!!! Exiting program!")
                 sys.exit()
 
