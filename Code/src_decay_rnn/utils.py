@@ -169,7 +169,7 @@ def dump_to_csv(X_IN, Y_IN, Y_PRED, Y_OUT_FULL=None, name="Dumped_csv.csv"):
 def dump_template_waveforms(dictionary, model_prefix="model_task"):
     for key in dictionary.keys():
         X_IN, Y_IN, Y_OUT_FULL = dictionary[key]
-        dump_to_csv_template(list(X_IN), list(Y_IN), list(Y_OUT_FULL), name=model_prefix+"_"+str(key)+".csv")
+        dump_to_csv_template(list(X_IN), list(Y_IN), list(Y_OUT_FULL), name="Dumped_csv_"+str(key)+".csv")
 
 def dump_to_csv_template(X_IN, Y_IN, Y_OUT_FULL, name="Dumped_csv.csv"):
     df_list = []
